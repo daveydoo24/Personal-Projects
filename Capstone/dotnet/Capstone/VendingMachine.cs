@@ -11,6 +11,8 @@ namespace Capstone
         // inventory - dictionary - key=slot & value=inventory item
         public Dictionary<string, InventoryItem> InventoryItems = new Dictionary<string, InventoryItem>();
 
+        public BankAccount bankAccount = new BankAccount();
+
         // constructor
         public VendingMachine()
         {
@@ -18,7 +20,40 @@ namespace Capstone
         }
 
         // methods
-        // load up initial inventory
+        // purchase item method
+        public void PurchaseItem()
+        {
+            bool purchaseComplete = false;
+            while (!purchaseComplete)
+            {
+                Console.WriteLine("Purchase Menu");
+                Console.WriteLine();
+                Console.WriteLine("(1) Feed Money");
+                Console.WriteLine("(2) Select Product");
+                Console.WriteLine("(3) Finish Transaction\n");
+                Console.WriteLine($"Current Money Provided: ${bankAccount.CustomerBalance}\n");
+                Console.Write("Please make a selection: ");
+                string customerInput = Console.ReadLine();
+
+                if (customerInput == "1")
+                {
+                    // feed money method
+                    bankAccount.FeedMoney();
+                }
+                else if (customerInput == "2")
+                {
+                    // purchase method
+                }
+                else if (customerInput == "3")
+                {
+                    purchaseComplete = true;
+                }
+                else
+                {
+                    Console.WriteLine("Please provide input again!");
+                }
+            }
+        }
         
         public void LoadInventory()
         {
