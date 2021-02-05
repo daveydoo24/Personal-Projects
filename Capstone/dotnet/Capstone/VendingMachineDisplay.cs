@@ -30,7 +30,6 @@ namespace Capstone
             Console.WriteLine("(2) Select Product");
             Console.WriteLine("(3) Finish Transaction\n");
             Console.WriteLine($"Current Money Provided: {bankAccount.CustomerBalance:C2}\n");
-
         }
     }
 }

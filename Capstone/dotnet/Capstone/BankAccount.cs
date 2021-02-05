@@ -19,7 +19,6 @@ namespace Capstone
                 string customerDeposit = Console.ReadLine();
 
                 bool validInput = Int32.TryParse(customerDeposit, out int customerDepositAmount);
-                // decimal customerDepositAmount = decimal.Parse(customerDeposit); 
                 if (validInput)
                 {
                     if (customerDepositAmount == 1.0M || customerDepositAmount == 2.0M || customerDepositAmount == 5.0M || customerDepositAmount == 10.0M)

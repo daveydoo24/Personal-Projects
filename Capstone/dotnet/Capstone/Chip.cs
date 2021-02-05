@@ -11,11 +11,5 @@ namespace Capstone
             : base(slot, name, price)
         {
         }
-
-
-        //public override string VendMessage()
-        //{
-        //    return "Crunch Crunch, Yum!";
-        //}
     }
 }
