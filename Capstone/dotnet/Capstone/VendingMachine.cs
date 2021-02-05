@@ -43,6 +43,8 @@ namespace Capstone
                 else if (customerInput == "2")
                 {
                     // purchase method
+                    SelectProduct(InventoryItems);
+
                 }
                 else if (customerInput == "3")
                 {
@@ -54,7 +56,44 @@ namespace Capstone
                 }
             }
         }
-        
+
+        public void SelectProduct(Dictionary<string, InventoryItem> inventoryItems)
+        {
+            foreach (KeyValuePair<string, InventoryItem> item in inventoryItems)
+            {
+                Console.WriteLine($"Slot: {item.Key} | { item.Value.Name} Price: {item.Value.Price} Qty: {item.Value.Quantity}");
+            }
+            Console.WriteLine();
+            Console.Write("Please enter product ID: ");
+            string userInput = Console.ReadLine();
+
+            if (!inventoryItems.ContainsKey(userInput))
+            {
+                Console.WriteLine("Product ID does not exist");
+            }
+            else if (inventoryItems[userInput].Quantity == 0)
+            {
+                Console.WriteLine("Product is SOLD OUT");
+            }
+            else
+            {
+                if(bankAccount.CustomerBalance > inventoryItems[userInput].Price)
+                {
+                    inventoryItems[userInput].Quantity--;
+                    Console.WriteLine($"Selected {inventoryItems[userInput].Name} for ${inventoryItems[userInput].Price}");
+                    Console.WriteLine($"{inventoryItems[userInput].VendMessage()}");
+                    bankAccount.MakePurchase(inventoryItems[userInput].Price);
+                    Console.WriteLine($"Your available balance is now: ${bankAccount.CustomerBalance}");
+
+                }
+                else
+                {
+                    Console.WriteLine("Insufficient funds - please add money");
+                }
+            }
+
+        }
+
         public void LoadInventory()
         {
             string directory = Environment.CurrentDirectory;

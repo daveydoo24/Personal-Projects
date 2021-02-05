@@ -10,7 +10,8 @@ namespace Capstone
         public string Slot { get; }
         public string Name { get; }
         public decimal Price { get; }
-        public int Quantity { get; } = 5;
+        public int Quantity { get; set; } = 5;
+
 
 
         public InventoryItem(string slot, string name, decimal price)
@@ -19,6 +20,12 @@ namespace Capstone
             Name = name;
             Price = price;
         }
+
+        public virtual string VendMessage()
+        {
+            return "";
+        }
+
 
         // method to update quantity??
         // public void UpdateQuantity()

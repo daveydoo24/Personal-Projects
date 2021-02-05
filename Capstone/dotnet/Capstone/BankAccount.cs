@@ -27,5 +27,11 @@ namespace Capstone
             CustomerBalance += customerDepositAmount;
         }
 
+        public void MakePurchase(decimal purchaseAmount)
+        {
+            CustomerBalance -= purchaseAmount;
+            VendingMachineBalance += purchaseAmount;
+        }
+
     }
 }
