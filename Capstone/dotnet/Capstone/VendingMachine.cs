@@ -26,33 +26,30 @@ namespace Capstone
             bool purchaseComplete = false;
             while (!purchaseComplete)
             {
-                Console.WriteLine("Purchase Menu");
-                Console.WriteLine();
+                Console.WriteLine("\nPurchase Menu");
                 Console.WriteLine("(1) Feed Money");
                 Console.WriteLine("(2) Select Product");
                 Console.WriteLine("(3) Finish Transaction\n");
-                Console.WriteLine($"Current Money Provided: ${bankAccount.CustomerBalance}\n");
+                Console.WriteLine($"Current Money Provided: {bankAccount.CustomerBalance:C2}\n");
                 Console.Write("Please make a selection: ");
                 string customerInput = Console.ReadLine();
 
                 if (customerInput == "1")
                 {
-                    // feed money method
                     bankAccount.FeedMoney();
                 }
                 else if (customerInput == "2")
                 {
-                    // purchase method
                     SelectProduct(InventoryItems);
-
                 }
                 else if (customerInput == "3")
                 {
+                    bankAccount.FinishTransaction();
                     purchaseComplete = true;
                 }
                 else
                 {
-                    Console.WriteLine("Please provide input again!");
+                    Console.WriteLine("Please try your selection again!");
                 }
             }
         }
@@ -91,7 +88,6 @@ namespace Capstone
                     Console.WriteLine("Insufficient funds - please add money");
                 }
             }
-
         }
 
         public void LoadInventory()
@@ -144,10 +140,8 @@ namespace Capstone
             }
             catch(Exception e)
             {
-
-            }
-            
+                Console.WriteLine("There was an error reading the input file");
+            }   
         }
-
     }
 }

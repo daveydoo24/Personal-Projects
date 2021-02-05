@@ -9,8 +9,7 @@ namespace Capstone
         {
             VendingMachine vendoMatic800 = new VendingMachine(); // start up vending machine
 
-            Console.WriteLine("Welcome To The Vendo-Matic 800!");
-            Console.WriteLine();
+            Console.WriteLine("Welcome To The Vendo-Matic 800!\n");
             bool customerExit = false;
             while (!customerExit)
             {
@@ -26,18 +25,14 @@ namespace Capstone
                 }
                 else if (customerInput == "3")
                 {
-                    Console.WriteLine("Thank you for using the Vendo-Matic 800!");
-                    break;
+                    Console.WriteLine("\nThank you for using the Vendo-Matic 800!");
+                    customerExit = true;
                 }
                 else
                 {
                     Console.WriteLine("Please try your selection again!");
                 }
-
             }
-            
-            // Console.WriteLine($"vending machine bank balance: {vendoMatic800.bankAccount.Balance}");
-
         }
 
         static void DisplayMainMenu()
@@ -51,11 +46,12 @@ namespace Capstone
 
         static void DisplayVendingMachineItems(VendingMachine vendingMachine)
         {
+            Console.WriteLine();
             foreach (KeyValuePair<string, InventoryItem> item in vendingMachine.InventoryItems)
             {
                 Console.WriteLine($"Slot: {item.Key} | { item.Value.Name} Price: {item.Value.Price} Qty: {item.Value.Quantity}");
             }
-
+            Console.WriteLine();
         }
     }
 }
