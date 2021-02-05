@@ -7,13 +7,13 @@ namespace Capstone
 {
     class VendingMachine
     {
-        public Dictionary<string, InventoryItem> InventoryItems = new Dictionary<string, InventoryItem>();
+        public Dictionary<string, InventoryItem> InventoryItems { get; private set; } = new Dictionary<string, InventoryItem>();
 
         public BankAccount bankAccount = new BankAccount();
 
         public VendingMachine()
         {
-            LoadInventory();
+            InventoryItems = LoadInventory();
         }
 
         public void PurchaseItem()
@@ -90,11 +90,13 @@ namespace Capstone
             }
         }
 
-        public void LoadInventory()
+        public Dictionary<string, InventoryItem> LoadInventory()
         {
             string directory = Environment.CurrentDirectory;
             string filename = "vendingmachine.csv";
             string fullPath = Path.Combine(directory, filename);
+
+            Dictionary<string, InventoryItem> inventoryItems = new Dictionary<string, InventoryItem>();
 
             try
             {
@@ -113,23 +115,23 @@ namespace Capstone
                         if (type == "chip")
                         {
                             Chip chip = new Chip(slot, name, price);
-                            InventoryItems.Add(slot, chip);
+                            inventoryItems.Add(slot, chip);
                         }
                         else if (type == "gum")
                         {
                             Gum gum = new Gum(slot, name, price);
-                            InventoryItems.Add(slot, gum);
+                            inventoryItems.Add(slot, gum);
 
                         }
                         else if (type == "candy")
                         {
                             Candy candy = new Candy(slot, name, price);
-                            InventoryItems.Add(slot, candy);
+                            inventoryItems.Add(slot, candy);
                         }
                         else if (type == "drink")
                         {
                             Drink drink = new Drink(slot, name, price);
-                            InventoryItems.Add(slot, drink);
+                            inventoryItems.Add(slot, drink);
                         }
                         else
                         {
@@ -141,7 +143,9 @@ namespace Capstone
             catch(Exception e)
             {
                 Console.WriteLine("There was an error reading the input file");
-            }   
+            }
+            return inventoryItems;
         }
+
     }
 }

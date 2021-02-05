@@ -33,10 +33,5 @@ namespace Capstone
             Name = name;
             Price = price;
         }
-
-        //public virtual string VendMessage()
-        //{
-        //    return "";
-        //}
     }
 }
