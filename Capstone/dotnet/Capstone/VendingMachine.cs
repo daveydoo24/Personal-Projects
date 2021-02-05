@@ -7,30 +7,22 @@ namespace Capstone
 {
     class VendingMachine
     {
-        // properties
-        // inventory - dictionary - key=slot & value=inventory item
         public Dictionary<string, InventoryItem> InventoryItems = new Dictionary<string, InventoryItem>();
 
         public BankAccount bankAccount = new BankAccount();
 
-        // constructor
         public VendingMachine()
         {
             LoadInventory();
         }
 
-        // methods
-        // purchase item method
         public void PurchaseItem()
         {
             bool purchaseComplete = false;
             while (!purchaseComplete)
             {
-                Console.WriteLine("\nPurchase Menu");
-                Console.WriteLine("(1) Feed Money");
-                Console.WriteLine("(2) Select Product");
-                Console.WriteLine("(3) Finish Transaction\n");
-                Console.WriteLine($"Current Money Provided: {bankAccount.CustomerBalance:C2}\n");
+                VendingMachineDisplay.DisplayPurchaseMenu(bankAccount);
+
                 Console.Write("Please make a selection: ");
                 string customerInput = Console.ReadLine();
 
@@ -56,13 +48,10 @@ namespace Capstone
 
         public void SelectProduct(Dictionary<string, InventoryItem> inventoryItems)
         {
-            foreach (KeyValuePair<string, InventoryItem> item in inventoryItems)
-            {
-                Console.WriteLine($"Slot: {item.Key} | { item.Value.Name} Price: {item.Value.Price} Qty: {item.Value.Quantity}");
-            }
-            Console.WriteLine();
+            VendingMachineDisplay.DisplayVendingMachineItems(inventoryItems);
+
             Console.Write("Please enter product ID: ");
-            string userInput = Console.ReadLine();
+            string userInput = Console.ReadLine().ToUpper();
 
             if (!inventoryItems.ContainsKey(userInput))
             {
@@ -77,9 +66,20 @@ namespace Capstone
                 if(bankAccount.CustomerBalance > inventoryItems[userInput].Price)
                 {
                     inventoryItems[userInput].Quantity--;
-                    Console.WriteLine($"Selected {inventoryItems[userInput].Name} for ${inventoryItems[userInput].Price}");
-                    Console.WriteLine($"{inventoryItems[userInput].VendMessage()}");
-                    bankAccount.MakePurchase(inventoryItems[userInput].Price);
+
+                    string dateTimeStamp = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss tt");
+                    string itemName = inventoryItems[userInput].Name;
+                    string slot = inventoryItems[userInput].Slot;
+                    string customerBalanceBeforePurchase = $"{bankAccount.CustomerBalance:C2}";
+
+                    Console.WriteLine($"\nSelected {inventoryItems[userInput].Name} for ${inventoryItems[userInput].Price}\n");
+                    Console.WriteLine($"{inventoryItems[userInput].VendMessage}\n");
+                    bankAccount.MakePurchase(inventoryItems[userInput].Price); // UPDATING CUSTOMER BALANCE
+
+                    string customerBalanceAfterPurchase = $"{bankAccount.CustomerBalance:C2}";
+                    string logMessage = $"{dateTimeStamp} {itemName} {slot} {customerBalanceBeforePurchase} {customerBalanceAfterPurchase}";
+                    Audit.Log(logMessage);
+
                     Console.WriteLine($"Your available balance is now: ${bankAccount.CustomerBalance}");
 
                 }

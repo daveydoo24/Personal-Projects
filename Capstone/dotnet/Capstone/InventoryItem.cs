@@ -10,6 +10,22 @@ namespace Capstone
         public string Name { get; }
         public decimal Price { get; }
         public int Quantity { get; set; } = 5;
+        public virtual string VendMessage { get; }
+
+        public string AvailableQuantity
+        {
+            get
+            {
+                if (Quantity == 0)
+                {
+                    return "SOLD OUT";
+                }
+                else
+                {
+                    return Quantity.ToString();
+                }
+            }
+        }
 
         public InventoryItem(string slot, string name, decimal price)
         {
@@ -18,9 +34,9 @@ namespace Capstone
             Price = price;
         }
 
-        public virtual string VendMessage()
-        {
-            return "";
-        }
+        //public virtual string VendMessage()
+        //{
+        //    return "";
+        //}
     }
 }

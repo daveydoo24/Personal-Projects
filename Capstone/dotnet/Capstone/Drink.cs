@@ -6,14 +6,15 @@ namespace Capstone
 {
     class Drink: InventoryItem
     {
+        public override string VendMessage { get; } = "Glug Glug, Yum!";
         public Drink (string slot, string name, decimal price)
             : base(slot, name, price)
         {
         }
 
-        public override string VendMessage()
-        {
-            return "Glug Glug, Yum!";
-        }
+        //public override string VendMessage()
+        //{
+        //    return "Glug Glug, Yum!";
+        //}
     }
 }
