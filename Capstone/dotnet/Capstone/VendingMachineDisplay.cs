@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Capstone
 {
-    abstract class VendingMachineDisplay
+    static class VendingMachineDisplay
     {
         public static void DisplayMainMenu()
         {
